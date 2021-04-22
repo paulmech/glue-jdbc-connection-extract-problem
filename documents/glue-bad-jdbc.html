@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <title>glue-bad-jdbc</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    <!-- Custom stylesheet, it must be in the same directory as the html file -->
+    <link rel="stylesheet" href="custom.css" />
+
+    <!-- Loading mathjax macro -->
+    <!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+              displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+              processEscapes: true,
+              processEnvironments: true
+          },
+          // Center justify equations in code and markdown cells. Elsewhere
+          // we use CSS to left justify single line equations in code cells.
+          displayAlign: 'center',
+          "HTML-CSS": {
+              styles: {'.MathJax_Display': {"margin": 0}},
+              linebreaks: { automatic: true }
+          }
+      });
+    </script>
+    <style type="text/css">
+      div.output_wrapper {
+        padding: 0.4em;
+        margin: 0.4em;
+      }
+
+      div.input {
+        border: solid 1px lightgray;
+        background-color: #eee;
+        padding: 0.4em;
+        margin: 0.4em;
+      }
+    </style>
+    <!-- End of mathjax configuration -->
+  </head>
+  <body>
+    <div tabindex="-1" id="notebook" class="border-box-sizing">
+      <div class="container" id="notebook-container">
+        <div class="cell border-box-sizing code_cell rendered">
+          <div class="input">
+            <div class="prompt input_prompt">In&nbsp;[23]:</div>
+            <div class="inner_cell">
+              <div class="input_area">
+                <div class="highlight hl-python3">
+                  <pre><span></span><span class="kn">import</span> <span class="nn">boto3</span>
+
+<span class="n">my_connection_name</span> <span class="o">=</span> <span class="s2">&quot;bad-jdbc&quot;</span>
+<span class="n">glueapi</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;glue&quot;</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="s2">&quot;ap-southeast-2&quot;</span><span class="p">)</span>
+
+<span class="n">connections</span> <span class="o">=</span> <span class="n">glueapi</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">Name</span> <span class="o">=</span> <span class="n">my_connection_name</span> <span class="p">)</span>
+</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="output_wrapper">
+            <div class="output">
+              <div class="output_area">
+                <div class="prompt"></div>
+
+                <div id="0e500eda-5c28-462f-bc73-dda4d4c35e97"></div>
+                <div class="output_subarea output_widget_view">
+                  <script type="text/javascript">
+                    var element = $("#0e500eda-5c28-462f-bc73-dda4d4c35e97");
+                  </script>
+                  <script type="application/vnd.jupyter.widget-view+json">
+                    { "model_id": "", "version_major": 2, "version_minor": 0 }
+                  </script>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell border-box-sizing code_cell rendered">
+          <div class="input">
+            <div class="prompt input_prompt">In&nbsp;[24]:</div>
+            <div class="inner_cell">
+              <div class="input_area">
+                <div class="highlight hl-python3">
+                  <pre><span></span><span class="n">configured_url</span> <span class="o">=</span> <span class="p">(</span><span class="n">connections</span><span class="p">[</span><span class="s2">&quot;Connection&quot;</span><span class="p">][</span><span class="s2">&quot;ConnectionProperties&quot;</span><span class="p">][</span><span class="s2">&quot;JDBC_CONNECTION_URL&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">configured_url</span><span class="p">)</span>
+</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="output_wrapper">
+            <div class="output">
+              <div class="output_area">
+                <div class="prompt"></div>
+
+                <div id="dbb8b1b9-259b-4abb-a21d-b76ec23dcf9b"></div>
+                <div class="output_subarea output_widget_view">
+                  <script type="text/javascript">
+                    var element = $("#dbb8b1b9-259b-4abb-a21d-b76ec23dcf9b");
+                  </script>
+                  <script type="application/vnd.jupyter.widget-view+json">
+                    { "model_id": "", "version_major": 2, "version_minor": 0 }
+                  </script>
+                </div>
+              </div>
+
+              <div class="output_area">
+                <div class="prompt"></div>
+
+                <div
+                  class="output_subarea output_stream output_stdout output_text"
+                >
+                  <pre>
+jdbc:oracle:thin://@hostname.rds.amazonaws.com:1521/ORCL</pre
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell border-box-sizing code_cell rendered">
+          <div class="input">
+            <div class="prompt input_prompt">In&nbsp;[25]:</div>
+            <div class="inner_cell">
+              <div class="input_area">
+                <div class="highlight hl-python3">
+                  <pre><span></span><span class="kn">from</span> <span class="nn">pyspark.context</span> <span class="kn">import</span> <span class="n">SparkContext</span>
+<span class="kn">from</span> <span class="nn">awsglue.context</span> <span class="kn">import</span> <span class="n">GlueContext</span>
+<span class="n">glueContext</span> <span class="o">=</span> <span class="n">GlueContext</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="output_wrapper">
+            <div class="output">
+              <div class="output_area">
+                <div class="prompt"></div>
+
+                <div id="ee813bd1-4d7f-46df-b09a-b401cd73e0b3"></div>
+                <div class="output_subarea output_widget_view">
+                  <script type="text/javascript">
+                    var element = $("#ee813bd1-4d7f-46df-b09a-b401cd73e0b3");
+                  </script>
+                  <script type="application/vnd.jupyter.widget-view+json">
+                    { "model_id": "", "version_major": 2, "version_minor": 0 }
+                  </script>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell border-box-sizing code_cell rendered">
+          <div class="input">
+            <div class="prompt input_prompt">In&nbsp;[29]:</div>
+            <div class="inner_cell">
+              <div class="input_area">
+                <div class="highlight hl-python3">
+                  <pre><span></span><span class="n">extracted_connection</span> <span class="o">=</span> <span class="n">glueContext</span><span class="o">.</span><span class="n">extract_jdbc_conf</span><span class="p">(</span> <span class="n">my_connection_name</span> <span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span> <span class="s2">&quot;glueContext extracted = &quot;</span><span class="p">,</span> <span class="n">extracted_connection</span><span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span> <span class="s2">&quot;configured            = &quot;</span><span class="p">,</span><span class="n">configured_url</span><span class="p">)</span>
+</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="output_wrapper">
+            <div class="output">
+              <div class="output_area">
+                <div class="prompt"></div>
+
+                <div id="2ec0c146-3817-49da-900f-e13fc0c34b69"></div>
+                <div class="output_subarea output_widget_view">
+                  <script type="text/javascript">
+                    var element = $("#2ec0c146-3817-49da-900f-e13fc0c34b69");
+                  </script>
+                  <script type="application/vnd.jupyter.widget-view+json">
+                    { "model_id": "", "version_major": 2, "version_minor": 0 }
+                  </script>
+                </div>
+              </div>
+
+              <div class="output_area">
+                <div class="prompt"></div>
+
+                <div
+                  class="output_subarea output_stream output_stdout output_text"
+                >
+                  <pre>
+glueContext extracted =  jdbc:oracle://hostname.rds.amazonaws.com:1521
+configured            =  jdbc:oracle:thin://@hostname.rds.amazonaws.com:1521/ORCL</pre
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
